@@ -24,9 +24,9 @@ func ConnectDataBase() {
 	dbName := os.Getenv("DB_NAME")
 	dbHost := os.Getenv("DB_HOST")
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable TimeZone=Asia/Tokyo", dbHost, dbUser, dbPass, dbName)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Could not connect to the database", err)
 	}
-	db.AutoMigrate(&User{})
+	DB.AutoMigrate(&User{})
 }

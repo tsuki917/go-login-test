@@ -9,7 +9,6 @@ import (
 
 func main() {
 	models.ConnectDataBase()
-
 	router := gin.Default()
 
 	public := router.Group("/api")

@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"login-test/models"
 	"net/http"
+
+	"login-test/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +22,7 @@ func Register(c *gin.Context) {
 	}
 
 	user := models.User{Username: input.Username, Password: input.Password}
+
 	user, err := user.Save()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

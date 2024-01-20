@@ -9,7 +9,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Username string `gorm:"size:255;not null;unique;" json:"username"`
+	Username string `gorm:"size:255;not null;unique" json:"username"`
 	Password string `gorm:"size:255;not null;" json:"password"`
 }
 
@@ -21,13 +21,16 @@ func (u User) Save() (User, error) {
 	return u, nil
 }
 
-func (u *User) BefreSave() error {
+func (u *User) BeforeSave() error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
+
 	u.Password = string(hashedPassword)
+
 	u.Username = strings.ToLower(u.Username)
+
 	return nil
 }
 
